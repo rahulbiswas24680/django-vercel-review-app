@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Library</li>
+    </ol>
+</nav>
+<h1 class="text-center my-2">Review Section</h1>
+<hr>
+<!-- {{ form.as_p }} -->
+<div class="container p-5">
+    <form method="post" enctype="multipart/form-data" action="{% url 'review-create' %}" class="needs-validation">{%csrf_token %}
+        <div class="mb-3">
+            <label for="inputCategory" class="form-label">Category</label>
+            <select class="form-select" aria-label="Default select example" id="inputCategory" name="category" required>
+                <option selected>Select here</option>
+                {% for cat in categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+            <div id="categoryHelp" class="form-text">Select your product category</div>
+        </div>
+        <div class="mb-3">
+            <label for="inputBrand" class="form-label">Brand</label>
+            <select class="form-select" aria-label="Default select example" id="inputBrand" name="brand" required>
+                <option selected>Select here</option>
+                {% for brand in brands %}
+                <option value="{{ brand.id }}">{{ brand.name }}</option>
+                {% endfor %}
+            </select>
+            <div id="brandHelp" class="form-text">Select your product brand</div>
+        </div>
+        <div class="mb-3">
+            <label for="inputModel" class="form-label">Model</label>
+            <select class="form-select" aria-label="Default select example" id="inputModel" name="model" required>
+                <option selected>Select here</option>
+                {% for model in models %}
+                <option value="{{ model.id }}">{{ model.name }}</option>
+                {% endfor %}
+            </select>
+            <div id="modelHelp" class="form-text">Select your product model</div>
+        </div>
+        <div class="mb-3">
+            <label for="inputRating" class="form-label me-5">Overall Rating</label>
+            <div class="inputRating">
+                <input type="hidden" value="" name="rating_input">
+                <i class="bi bi-star-fill r1" value="5"></i>
+                <i class="bi bi-star-fill r2" value="4"></i>
+                <i class="bi bi-star-fill r3" value="3"></i>
+                <i class="bi bi-star-fill r4" value="2"></i>
+                <i class="bi bi-star-fill r5" value="1"></i>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="inputReviewOfUser" class="form-label">Review of User</label>
+            <select class="form-select" aria-label="Default select example" id="inputModel" name="review_of_user">
+                <option selected>Select here</option>
+                {% for user in product_user %}
+                <option value="{{ user.id }}">{{ user.name }}</option>
+                {% endfor %}
+            </select>
+            <div id="modelHelp" class="form-text">Select your product model</div>
+        </div>
+        <hr class="border border-primary border-5 opacity-50 my-5">
+        <h5 class="text-center">Questions</h5>
+
+        <div class="mb-3">
+            <label for="question-1" class="form-label" name="q-1">{{ question.ques_title }}</label>
+            <div class="options-wrapper mx-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ques-{{ question.id }}" value="1">
+                    <label class="form-check-label" for="o-1" name="option_1" id="o-1">
+                        {{ question.option_1 }}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ques-{{ question.id }}" value="2">
+                    <label class="form-check-label" for="o-2" name="option_2" id="o-2">
+                        {{ question.option_2 }}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ques-{{ question.id }}" value="3">
+                    <label class="form-check-label" for="o-3" name="option_3" id="o-3">
+                        {{ question.option_3 }}
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="ques-{{ question.id }}" value="4">
+                    <label class="form-check-label" for="o-4" name="option_4" id="o-4">
+                        {{ question.option_4 }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <hr class="border border-primary border-5 opacity-50 my-5">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Default file input example</label>
+            <input class="form-control" type="file" id="formFile" data-show-upload="false" data-show-caption="true"
+                multiple name="files" required>
+        </div>
+
+        <button type="submit" class="btn btn-success" id="reviewSubmit">Submit</button>
+    </form>
+</div>
+
+<script>
+    const ratings = document.querySelectorAll('i.bi-star-fill');
+    console.log(ratings);
+
+    ratings.forEach(element => {
+        element.addEventListener('click', () => {
+            let startIndex = Array.from(ratings).indexOf(element);
+            let firstIndex = Array.from(ratings).indexOf(ratings[0]);
+            let endIndex = ratings.length - 1;
+
+            for (let i = startIndex; i <= endIndex; i++) {
+                console.log('selected', i);
+                ratings[i].style.color = '#0c4b80';
+            }
+            for (let j = firstIndex; j <= startIndex - 1; j++) {
+                console.log('not selected', j);
+                ratings[j].style.color = '#bee0fd';
+            }
+            // console.log(element.getAttribute('value'));
+            let ratingInput = document.getElementsByName('rating_input')[0];
+            ratingInput.value = element.getAttribute('value');
+            // console.log(rating_input.innerHTML);
+        })
+    })
+
+    // review submit alert
+    // const reviewSubmit = document.getElementById('reviewSubmit');
+    // reviewSubmit.addEventListener('click', () => {
+    //     Swal.fire(
+    //         'Good job!',
+    //         'You clicked the button!',
+    //         'success'
+    //         );
+    // })
+    
+</script>
+
+
+{% endblock content %}

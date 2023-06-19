@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Library</li>
+    </ol>
+  </nav>
+<h1 class="text-center my-2">Review Section</h1>
+<hr>
+
+<form action="" method="post">
+    <div class="review-options m-3">
+        <div class="row">
+            <div class="col-auto me-auto">
+                <a href="{% url 'review-create' %}" class="btn btn-sm btn-outline-success">+ Add</a>
+            </div>
+            <div class="col-auto">
+                <div class="dropdown-center">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Filter
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Action two</a></li>
+                      <li><a class="dropdown-item" href="#">Action three</a></li>
+                    </ul>
+                  </div>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'review-create' %}" class="btn btn-sm btn-outline-info">Update</a>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'review-create' %}" class="btn btn-sm btn-outline-danger">Delete</a>
+            </div>
+            
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">No.</th>
+                <th scope="col">Category</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Review Of</th>
+                <th scope="col">Reviewed By</th>
+                <th scope="col">Review Price</th>
+                <th scope="col">Payment of User</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews_list %}
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </div>
+                </td>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ review.category.name }}</td>
+                <td>{{ review.brand.name }}</td>
+                <td>{{ review.model.name }}</td>
+                <td style="color: #0c4b80;"><i class="bi bi-star-fill"></i>&nbsp; <b>{{ review.rating }}</b></td>
+                <td>{{ review.brand.name }}</td>
+                <td><a href="#">{{ review.review_of_user.name }}</a></td>
+                <td>{{ review.price_of_review }}</td>
+                <td>{{ review.payment_of_product_user }}</td>
+
+            </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+{% endblock content %}

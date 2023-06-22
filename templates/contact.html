@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="container p-5">
+    <h2 class="text-center m-5">Contact page</h2>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 mb-5">
+            <img class="img-thumbnail" src="https://img.freepik.com/free-vector/contact-us-concept-illustration_114360-2299.jpg?w=2000" alt="message us" height="450">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
+            <form action="/" method="post">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                    <button type="submit" class="btn btn-sm btn-secondary roundedp-2">Message Us</button type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock content %}
